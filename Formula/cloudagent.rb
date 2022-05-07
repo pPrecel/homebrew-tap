@@ -5,21 +5,21 @@
 class Cloudagent < Formula
   desc "The simple and easy-to-use program designed to watch user activity for Cloud Providers."
   homepage "http://github.com/pPrecel/cloudagent"
-  version "2.1.0"
+  version "0.2.1"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v2.1.0/cloudagent_2.1.0_darwin_x86_64.tar.gz"
-      sha256 "bc4260a36167fa8dd7252821fecf7c9c88b701296be316775cdf56ec64b29015"
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.1/cloudagent_0.2.1_darwin_x86_64.tar.gz"
+      sha256 "accef5dc33fcb3b6044ed98db2d00024a0d5f8d58b59cd94a184403b4af0566c"
 
       def install
         bin.install "cloudagent"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v2.1.0/cloudagent_2.1.0_darwin_arm64.tar.gz"
-      sha256 "b5d285246ae84a7397b47ad89f337a7e80aae39151480d253e3644447c0a5bb3"
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.1/cloudagent_0.2.1_darwin_arm64.tar.gz"
+      sha256 "3f2678bd689d7c35ac14efc27ea1252a00ea88fe9c3ba16ff063d00c6ecf2fcd"
 
       def install
         bin.install "cloudagent"
@@ -28,25 +28,25 @@ class Cloudagent < Formula
   end
 
   on_linux do
+    if Hardware::CPU.intel?
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.1/cloudagent_0.2.1_linux_x86_64.tar.gz"
+      sha256 "b8d67f1f161b7d6f61a5a10ed495ba82f34e17ec027c1fb7f425f187a6e28195"
+
+      def install
+        bin.install "cloudagent"
+      end
+    end
     if Hardware::CPU.arm? && !Hardware::CPU.is_64_bit?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v2.1.0/cloudagent_2.1.0_linux_armv7.tar.gz"
-      sha256 "20f0071b20641cc211ee1d5ec4bc1430dcc2312392569ba8ce6c59157f695201"
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.1/cloudagent_0.2.1_linux_armv7.tar.gz"
+      sha256 "4417666090b507749e6dee188e8246dde6dfc79c0dcde3d426b7b4e2ebcb03f5"
 
       def install
         bin.install "cloudagent"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v2.1.0/cloudagent_2.1.0_linux_arm64.tar.gz"
-      sha256 "11d0a016028efb79b3c7c52e0b2ee2a1e422d5ae024f5ccc622f9af67b79d719"
-
-      def install
-        bin.install "cloudagent"
-      end
-    end
-    if Hardware::CPU.intel?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v2.1.0/cloudagent_2.1.0_linux_x86_64.tar.gz"
-      sha256 "113c5d617cc302d2b8e0334d4b123c093789fd271e2fd8f9af6c3177f1a59ea9"
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.1/cloudagent_0.2.1_linux_arm64.tar.gz"
+      sha256 "9bb3dec1b0199ab292342c6581b53afa6dfcf5a76ca5d8d49b0110601300ac1d"
 
       def install
         bin.install "cloudagent"
@@ -60,26 +60,26 @@ class Cloudagent < Formula
     <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-        <key>EnvironmentVariables</key>
-        <dict>
-                <key>PATH</key>
-                <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:</string>
-        </dict>
-        <key>Label</key>
-        <string>com.pPrecel.cloudagent.agent.plist</string>
-        <key>ProgramArguments</key>
-        <array>
-                <string>#{opt_bin}/cloudagent</string>
-                <string>serve</string>
-        </array>
-        <key>RunAtLoad</key>
-        <true/>
-        <key>KeepAlive</key>
-        <true/>
-        <key>StandardOutPath</key>
-        <string>/tmp/cloudagent/cloudagent.stdout</string>
-</dict>
+  <dict>
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>PATH</key>
+      <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:</string>
+    </dict>
+    <key>Label</key>
+    <string>#{plist_name}</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>#{opt_bin}/cloudagent</string>
+      <string>serve</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>/tmp/cloudagent/cloudagent.stdout</string>
+  </dict>
 </plist>
 
   EOS
