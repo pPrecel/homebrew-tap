@@ -5,21 +5,21 @@
 class Cloudagent < Formula
   desc "The simple and easy-to-use program designed to watch user activity for Cloud Providers."
   homepage "http://github.com/pPrecel/cloudagent"
-  version "0.2.2"
+  version "0.2.3"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.2/cloudagent_0.2.2_darwin_x86_64.tar.gz"
-      sha256 "26817c03ad8ba09c77b7b6fa57fe12beaa6b15c225545afda070785794be7d4a"
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.3/cloudagent_0.2.3_darwin_x86_64.tar.gz"
+      sha256 "4ede801395bf7e32f5e2bc8792e692e0847cc754cac292c14f1dea323fbdeae6"
 
       def install
         bin.install "cloudagent"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.2/cloudagent_0.2.2_darwin_arm64.tar.gz"
-      sha256 "1c865043b0de9df65c3acfb4b82efd2974a27027028c604c067ee9cc41eaf07b"
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.3/cloudagent_0.2.3_darwin_arm64.tar.gz"
+      sha256 "8a1bd3a77d9a03f9df9a857f437554bdae46cd7ff41f35bc3e425d62fbc517e9"
 
       def install
         bin.install "cloudagent"
@@ -29,24 +29,24 @@ class Cloudagent < Formula
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.2/cloudagent_0.2.2_linux_arm64.tar.gz"
-      sha256 "1d97e42cf41e82bff5b60964276e39c11918c13ba848d9876d013e211d738ff6"
-
-      def install
-        bin.install "cloudagent"
-      end
-    end
-    if Hardware::CPU.arm? && !Hardware::CPU.is_64_bit?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.2/cloudagent_0.2.2_linux_armv7.tar.gz"
-      sha256 "e1ff2976e232e7b7c58e5650b8f9cd49fcbb34c3701c9462f8a71e53db69d8db"
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.3/cloudagent_0.2.3_linux_arm64.tar.gz"
+      sha256 "a1e7fd5e48af4433969a66a3c758102ff8c7f16ada495c5cd3c63c5d5650757b"
 
       def install
         bin.install "cloudagent"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.2/cloudagent_0.2.2_linux_x86_64.tar.gz"
-      sha256 "86717b580f2fb8274defb28b4bb2e2b5321a80e8697a4a30684ac586e9165f24"
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.3/cloudagent_0.2.3_linux_x86_64.tar.gz"
+      sha256 "90702892e8db527f866635da34f5d94ba9a710afd290b9f176dd901fb73519dc"
+
+      def install
+        bin.install "cloudagent"
+      end
+    end
+    if Hardware::CPU.arm? && !Hardware::CPU.is_64_bit?
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.3/cloudagent_0.2.3_linux_armv7.tar.gz"
+      sha256 "82f9078fd09f8e10200add0df4162c0db0cc0ba8315ba97680afe3dc85afaae0"
 
       def install
         bin.install "cloudagent"
@@ -54,35 +54,8 @@ class Cloudagent < Formula
     end
   end
 
-  plist_options :startup => false
-
-  def plist; <<~EOS
-    <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-  <dict>
-    <key>EnvironmentVariables</key>
-    <dict>
-      <key>PATH</key>
-      <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:</string>
-    </dict>
-    <key>Label</key>
-    <string>#{plist_name}</string>
-    <key>ProgramArguments</key>
-    <array>
-      <string>#{opt_bin}/cloudagent</string>
-      <string>serve</string>
-    </array>
-    <key>RunAtLoad</key>
-    <true/>
-    <key>KeepAlive</key>
-    <true/>
-    <key>StandardOutPath</key>
-    <string>/tmp/cloudagent/cloudagent.stdout</string>
-  </dict>
-</plist>
-
-  EOS
+  def post_install
+    system "make", "install-agent"
   end
 
   test do
