@@ -5,21 +5,21 @@
 class Cloudagent < Formula
   desc "The simple and easy-to-use program designed to watch user activity for Cloud Providers."
   homepage "http://github.com/pPrecel/cloudagent"
-  version "0.2.1"
+  version "0.2.2"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.1/cloudagent_0.2.1_darwin_x86_64.tar.gz"
-      sha256 "accef5dc33fcb3b6044ed98db2d00024a0d5f8d58b59cd94a184403b4af0566c"
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.2/cloudagent_0.2.2_darwin_x86_64.tar.gz"
+      sha256 "26817c03ad8ba09c77b7b6fa57fe12beaa6b15c225545afda070785794be7d4a"
 
       def install
         bin.install "cloudagent"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.1/cloudagent_0.2.1_darwin_arm64.tar.gz"
-      sha256 "3f2678bd689d7c35ac14efc27ea1252a00ea88fe9c3ba16ff063d00c6ecf2fcd"
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.2/cloudagent_0.2.2_darwin_arm64.tar.gz"
+      sha256 "1c865043b0de9df65c3acfb4b82efd2974a27027028c604c067ee9cc41eaf07b"
 
       def install
         bin.install "cloudagent"
@@ -28,25 +28,25 @@ class Cloudagent < Formula
   end
 
   on_linux do
-    if Hardware::CPU.intel?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.1/cloudagent_0.2.1_linux_x86_64.tar.gz"
-      sha256 "b8d67f1f161b7d6f61a5a10ed495ba82f34e17ec027c1fb7f425f187a6e28195"
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.2/cloudagent_0.2.2_linux_arm64.tar.gz"
+      sha256 "1d97e42cf41e82bff5b60964276e39c11918c13ba848d9876d013e211d738ff6"
 
       def install
         bin.install "cloudagent"
       end
     end
     if Hardware::CPU.arm? && !Hardware::CPU.is_64_bit?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.1/cloudagent_0.2.1_linux_armv7.tar.gz"
-      sha256 "4417666090b507749e6dee188e8246dde6dfc79c0dcde3d426b7b4e2ebcb03f5"
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.2/cloudagent_0.2.2_linux_armv7.tar.gz"
+      sha256 "e1ff2976e232e7b7c58e5650b8f9cd49fcbb34c3701c9462f8a71e53db69d8db"
 
       def install
         bin.install "cloudagent"
       end
     end
-    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.1/cloudagent_0.2.1_linux_arm64.tar.gz"
-      sha256 "9bb3dec1b0199ab292342c6581b53afa6dfcf5a76ca5d8d49b0110601300ac1d"
+    if Hardware::CPU.intel?
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.2/cloudagent_0.2.2_linux_x86_64.tar.gz"
+      sha256 "86717b580f2fb8274defb28b4bb2e2b5321a80e8697a4a30684ac586e9165f24"
 
       def install
         bin.install "cloudagent"
