@@ -5,21 +5,21 @@
 class Cloudagent < Formula
   desc "The simple and easy-to-use program designed to watch user activity for Cloud Providers."
   homepage "http://github.com/pPrecel/cloudagent"
-  version "0.2.4"
+  version "0.3.0"
   license "MIT"
 
   on_macos do
-    if Hardware::CPU.intel?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.4/cloudagent_0.2.4_darwin_x86_64.tar.gz"
-      sha256 "5b86e9baaef8fcf082a1f08b52e3202f9680db5385759921d35084f8756c69c9"
+    if Hardware::CPU.arm?
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.3.0/cloudagent_0.3.0_darwin_arm64.tar.gz"
+      sha256 "8d82a1f90da6e2d4aeb05f32837e5d30d0386d3042352ae7b68d06c15f32c79b"
 
       def install
         bin.install "cloudagent"
       end
     end
-    if Hardware::CPU.arm?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.4/cloudagent_0.2.4_darwin_arm64.tar.gz"
-      sha256 "3c7fb768f707b3749c063e146b909c1439df39887741b5204467aaa473435a24"
+    if Hardware::CPU.intel?
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.3.0/cloudagent_0.3.0_darwin_x86_64.tar.gz"
+      sha256 "e7fad639535c4be8d856e8360aae0a41b76a3d10fa12318b7db75f235001c987"
 
       def install
         bin.install "cloudagent"
@@ -28,25 +28,25 @@ class Cloudagent < Formula
   end
 
   on_linux do
-    if Hardware::CPU.arm? && !Hardware::CPU.is_64_bit?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.4/cloudagent_0.2.4_linux_armv7.tar.gz"
-      sha256 "1d4f905ed8f30b1a100fbb954936d70003ccbddfb74b909ad29a9991f8e58898"
+    if Hardware::CPU.intel?
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.3.0/cloudagent_0.3.0_linux_x86_64.tar.gz"
+      sha256 "62a740c1f86e688c23a30cab63481d8b89115bd69ad1b0c2f207b4ffa3efbd09"
 
       def install
         bin.install "cloudagent"
       end
     end
-    if Hardware::CPU.intel?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.4/cloudagent_0.2.4_linux_x86_64.tar.gz"
-      sha256 "2d8b7c8902213c7251db87796b54d9dcd28d9954a79b98dfe3b5052852311d57"
+    if Hardware::CPU.arm? && !Hardware::CPU.is_64_bit?
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.3.0/cloudagent_0.3.0_linux_armv7.tar.gz"
+      sha256 "6d5db137883a8d92314c42a95aa2cbb4fb187721fa7d08b1eb08260b108be1fa"
 
       def install
         bin.install "cloudagent"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/pPrecel/cloudagent/releases/download/v0.2.4/cloudagent_0.2.4_linux_arm64.tar.gz"
-      sha256 "61926410080abb709138c0918f6d7050059a1f4cf9480bb00d1ccdf3ea0cdf27"
+      url "https://github.com/pPrecel/cloudagent/releases/download/v0.3.0/cloudagent_0.3.0_linux_arm64.tar.gz"
+      sha256 "fc8d6623883d6387190bb87aebf7624904fdf88b544e50c4c28c583cee87d726"
 
       def install
         bin.install "cloudagent"
@@ -56,38 +56,13 @@ class Cloudagent < Formula
 
   def post_install
     system "make", "bootstrap-config"
-    system "#{bin}/brew", "services", "start", "cloudagent"
   end
 
-  plist_options :startup => false
-
-  def plist; <<~EOS
-    <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-  <dict>
-    <key>EnvironmentVariables</key>
-    <dict>
-      <key>PATH</key>
-      <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:</string>
-    </dict>
-    <key>Label</key>
-    <string>#{plist_name}</string>
-    <key>ProgramArguments</key>
-    <array>
-      <string>#{opt_bin}/cloudagent</string>
-      <string>serve</string>
-    </array>
-    <key>RunAtLoad</key>
-    <true/>
-    <key>KeepAlive</key>
-    <true/>
-    <key>StandardOutPath</key>
-    <string>/tmp/cloudagent/cloudagent.stdout</string>
-  </dict>
-</plist>
-
-  EOS
+  service do
+    run ["#{opt_bin}/cloudagent", "serve"]
+    log_path "/tmp/cloudagent/cloudagent.stdout"
+    environment_variables PATH: "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:"
+    keep_alive true
   end
 
   test do
