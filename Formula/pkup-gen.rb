@@ -5,21 +5,21 @@
 class PkupGen < Formula
   desc "Simple tool to generate PKUP artifacts."
   homepage "http://github.com/pPrecel/pkup-gen"
-  version "6.0.0"
+  version "6.0.1"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/pPrecel/pkup-gen/releases/download/6.0.0/pkup-gen_6.0.0_darwin_amd64.tar.gz"
-      sha256 "e6de18d34c69acc863f58fc475a1f274529d3800dd087f340809dc03dc1cceb5"
+      url "https://github.com/pPrecel/pkup-gen/releases/download/6.0.1/pkup-gen_6.0.1_darwin_amd64.tar.gz"
+      sha256 "b734581dc980c85cc8a95f369e3c4411cdb3af0d1f8c7010ceaf8d16870a0c7e"
 
       def install
         bin.install "pkup"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/pPrecel/pkup-gen/releases/download/6.0.0/pkup-gen_6.0.0_darwin_arm64.tar.gz"
-      sha256 "53fe102f6b5f323e58ef0512287bbb2c913648973d6bdfc5ac0c3aa3c212060e"
+      url "https://github.com/pPrecel/pkup-gen/releases/download/6.0.1/pkup-gen_6.0.1_darwin_arm64.tar.gz"
+      sha256 "2355e8cdf69b58490739ea5f50b716a9fa4f93a4e3d2e5e176d016b7ff6274f3"
 
       def install
         bin.install "pkup"
@@ -29,22 +29,22 @@ class PkupGen < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/pPrecel/pkup-gen/releases/download/6.0.0/pkup-gen_6.0.0_linux_amd64.tar.gz"
-      sha256 "b5e91cf1f87154ffa52fa3d4a50319a73da299c8267d415d229b799e84cbc5c5"
+      url "https://github.com/pPrecel/pkup-gen/releases/download/6.0.1/pkup-gen_6.0.1_linux_amd64.tar.gz"
+      sha256 "7288b946f0c91cf35f0b691a3127d6cc10cddf7d7ef9daa0c8384b4449eee777"
       def install
         bin.install "pkup"
       end
     end
     if Hardware::CPU.arm? && !Hardware::CPU.is_64_bit?
-      url "https://github.com/pPrecel/pkup-gen/releases/download/6.0.0/pkup-gen_6.0.0_linux_armv7.tar.gz"
-      sha256 "03f784e69079cd7d0f7a6039cc78016fa495a773cc0369498f162a480fff453f"
+      url "https://github.com/pPrecel/pkup-gen/releases/download/6.0.1/pkup-gen_6.0.1_linux_armv7.tar.gz"
+      sha256 "32070fc83eed3cef47a13740531e030052683938f715a8666f05aae5deef2ee9"
       def install
         bin.install "pkup"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/pPrecel/pkup-gen/releases/download/6.0.0/pkup-gen_6.0.0_linux_arm64.tar.gz"
-      sha256 "ff9b612abd4ecd646ff08d607a9134a785600dca70f0b9436bd3458caa4d32ad"
+      url "https://github.com/pPrecel/pkup-gen/releases/download/6.0.1/pkup-gen_6.0.1_linux_arm64.tar.gz"
+      sha256 "b4c534b21bbfcfe48a3e9ed83c002f11f2bca8be1665433429b298ed6d212b9d"
       def install
         bin.install "pkup"
       end
